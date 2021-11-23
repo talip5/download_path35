@@ -1,9 +1,6 @@
 //https://www.w3.org/TR/PNG/iso_8859-1.txt
 //https://www.w3.org/People/mimasa/test/imgformat/img/w3c_home.jpg
 //https://firebasestorage.googleapis.com/v0/b/cloud2-f6bda.appspot.com/o/user%2Fali%2Fprofil.png?alt=media&token=01ea9038-8139-4640-a4e9-97ff0d5d621c
-import 'dart:ffi';
-import 'dart:typed_data';
-
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'dart:io';
 import 'package:flutter/material.dart';
@@ -30,60 +27,38 @@ class _HomePageState extends State<HomePage> {
   final Future<FirebaseApp> _initialization = Firebase.initializeApp();
 
   Future<void> storage() async{
-  //  .getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>()
-     var ref5 =firebase_storage.FirebaseStorage.instance.ref().child('user').child('ali').child('profil.png');
+    //  .getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>()
+    var ref5 =firebase_storage.FirebaseStorage.instance.ref().child('user').child('ali').child('profil.png');
     ref5.getDownloadURL().then((value) => print(value));
   }
 
 
 
-   deneme() async {
+  deneme() async {
     //Response response = await dio.get('https://www.w3.org/TR/PNG/iso_8859-1.txt');
     //Response response = await dio.get('https://www.w3.org/People/mimasa/test/imgformat/img/w3c_home.jpg');
-     Response response = await dio.get('https://www.w3.org/People/mimasa/test/imgformat/img/w3c_home.jpg');
-     Directory directory= await getExternalStorageDirectory();
+    Response response = await dio.get('https://www.w3.org/People/mimasa/test/imgformat/img/w3c_home.jpg');
+    Directory directory= await getExternalStorageDirectory();
     dirPath=directory.path;
     savePath='$dirPath/jpgDeneme.jpg';
-     print('kayit yapildi');
+    print('kayit yapildi');
     print(directory);
     print(dirPath);
     print(savePath);
     print(response.data);
   }
 
-  imageWrite() async {
-    //Response response = await dio.get('https://www.w3.org/TR/PNG/iso_8859-1.txt');
-    //Response response = await dio.get('https://www.w3.org/People/mimasa/test/imgformat/img/w3c_home.jpg');
-    Response response = await dio.get('https://www.w3.org/People/mimasa/test/imgformat/img/w3c_home.jpg',
-        options: Options(
-        responseType: ResponseType.bytes,
-        followRedirects: false,
-        validateStatus: (status) {
-          return status < 500;
-        }),
-    );
-    Directory directory= await getExternalStorageDirectory();
-    dirPath=directory.path;
-    savePath='$dirPath/jpgDeneme1.jpg';
-   print(response.data);
-    //File file=File(savePath);
-    //file.writeAsBytesSync(Uint8List(length));
-    //response.data is List<int>
-    //raf.writeFromSync(response.data);
-    print('kayit yapildi');
-  }
-
   Future writeDownload() async {
-   Response response = await dio.get('https://www.w3.org/TR/PNG/iso_8859-1.txt',
+    Response response = await dio.get('https://www.w3.org/TR/PNG/iso_8859-1.txt',
       //onReceiveProgress: showDownloadProgress,
-     //Received data with List<int>
-     options: Options(
-         responseType: ResponseType.bytes,
-         followRedirects: false,
-         validateStatus: (status) {
-           return status < 500;
-         }),
-   );
+      //Received data with List<int>
+      options: Options(
+          responseType: ResponseType.bytes,
+          followRedirects: false,
+          validateStatus: (status) {
+            return status < 500;
+          }),
+    );
     Directory directory= await getExternalStorageDirectory();
     dirPath=directory.path;
     savePath='$dirPath/jpgDeneme.jpg';
@@ -98,9 +73,9 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState(){
     super.initState();
-    }
+  }
 
-   @override
+  @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'download',
@@ -119,7 +94,6 @@ class _HomePageState extends State<HomePage> {
                         onPressed:() async{
                           //await storage();
                           deneme();
-                          //imageWrite();
                           print('deneme');
                         },
                         child:Text('deneme')
